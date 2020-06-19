@@ -1,0 +1,84 @@
+﻿Imports FinalGameProject
+
+Public Class GameStatus
+
+    Public Shared ReadOnly S As Char = "-"
+    Public Shared ReadOnly B As Char = "B"
+    Public Shared ReadOnly R As Char = "R"
+    Public Shared ReadOnly G As Char = "G"
+    Public Shared ReadOnly W As Char = "W"
+    Public Shared ReadOnly H As Char = "H"
+    Public Shared ReadOnly M As Char = "M"
+    Public Shared ReadOnly O As Char = "O"
+    'Public Shared ReadOnly AVAILABLE_TOKENS As Char() = {R, G, B, W}
+    Private rnd As Random = New Random
+
+    Public Const TILE_SIZE = 32
+    Public Const MAP_SIZE_X = 16
+    Public Const MAP_SIZE_Y = MAP_SIZE_X
+
+    Protected Friend spriteMap As Hashtable
+    Protected Friend keyboardListeners As List(Of IKeyboardListener) = New List(Of IKeyboardListener)
+    Protected Friend mouseListeners As List(Of IMouseListener) = New List(Of IMouseListener)
+    Protected Friend graphicsLayers As List(Of GraphicsLayer) = New List(Of GraphicsLayer)
+
+    Private score As Integer = 0
+
+    Public Sub New()
+        loadImages()
+
+        Dim background As BackgroundLayer = New BackgroundLayer()
+        graphicsLayers.Add(background)
+
+        Dim debug As DebugLayer = New DebugLayer()
+        graphicsLayers.Add(debug)
+
+        Dim tokens As CharactersLayer = New CharactersLayer()
+        graphicsLayers.Add(tokens)
+        keyboardListeners.Add(tokens)
+
+        Dim selectionHighlighter As SelectionHighlighter = New SelectionHighlighter()
+        graphicsLayers.Add(selectionHighlighter)
+        mouseListeners.Add(selectionHighlighter)
+    End Sub
+
+    Public Sub loadImages()
+        If spriteMap Is Nothing Then
+            spriteMap = New Hashtable()
+        End If
+
+        'softAdd(GameStatus.R, "images", "red32-96.png")
+        'softAdd(GameStatus.G, "images", "green32-96.png")
+        'softAdd(GameStatus.B, "images", "blue32-96.png")
+        'softAdd(GameStatus.W, "images", "white32-96.png")
+        'softAdd(GameStatus.H, "images", "hit.png")
+
+        softAdd(GameStatus.O, "images", "mario_32.png")
+        softAdd(GameStatus.M, "images", "mouse.png")
+        softAdd(GameStatus.G, "images", "grass32-96.png")
+    End Sub
+
+    Private Sub softAdd(c As Char, folder As String, filename As String)
+        If Not spriteMap.ContainsKey(c) Then
+            spriteMap.Add(c, Image.FromFile(Helpers.GetPath(folder, filename)))
+        End If
+    End Sub
+
+    Public Sub StartGame()
+        score = 0
+    End Sub
+
+    Public Sub EndGame()
+        score = 0
+    End Sub
+
+    Public Function GetScore() As Integer
+        Return score
+    End Function
+
+
+    Public Overrides Function ToString() As String
+        Return "TODO: UPDATE THIS"
+    End Function
+
+End Class

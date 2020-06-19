@@ -1,0 +1,40 @@
+﻿Imports FinalGameProject
+
+Public Class CharactersLayer
+    Inherits GraphicsLayer
+    Implements IKeyboardListener
+    Private character As GameEntity
+
+    Public Sub New()
+        MyBase.New()
+        character = New GameEntity(GameStatus.O)
+        entities.Add(character)
+    End Sub
+
+    Public Sub KeyDown(keyCode As Keys) Implements IKeyboardListener.KeyDown
+        Dim d As Direction = Direction.None
+        Select Case keyCode
+            Case Keys.Right, Keys.NumPad6
+                d = Direction.Right
+            Case Keys.Down, Keys.NumPad2
+                d = Direction.Down
+            Case Keys.Up, Keys.NumPad8
+                d = Direction.Up
+            Case Keys.Left, Keys.NumPad4
+                d = Direction.Left
+            Case Keys.NumPad7
+                d = Direction.UpLeft
+            Case Keys.NumPad9
+                d = Direction.UpRight
+            Case Keys.NumPad1
+                d = Direction.DownLeft
+            Case Keys.NumPad3
+                d = Direction.DownRight
+        End Select
+
+        character.move(xDelta(d), yDelta(d))
+    End Sub
+
+    Public Sub KeyUp(keyCode As Keys) Implements IKeyboardListener.KeyUp
+    End Sub
+End Class

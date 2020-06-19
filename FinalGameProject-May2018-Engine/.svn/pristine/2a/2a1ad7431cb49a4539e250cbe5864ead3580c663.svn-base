@@ -1,0 +1,45 @@
+﻿Imports FinalGameProject
+
+Friend Class SelectionHighlighter
+    Inherits GraphicsLayer
+    Implements IMouseListener
+
+    Private highlight As GameEntity = New HighlightEntity()
+
+    Public Sub New(game As GameStatus)
+        MyBase.New(game)
+        entities.Add(highlight)
+    End Sub
+
+    Public Sub MouseMoved(x As Integer, y As Integer) Implements IMouseListener.MouseMoved
+        highlight.setLocation(Helpers.ConvertPixelToGrid(x), Helpers.ConvertPixelToGrid(y))
+    End Sub
+
+    Public Sub MouseEnter() Implements IMouseListener.MouseEnter
+        highlight.visible = True
+    End Sub
+
+    Public Sub MouseLeave() Implements IMouseListener.MouseLeave
+        highlight.visible = False
+    End Sub
+
+    Public Sub MouseUp(button As Integer, x As Integer, y As Integer) Implements IMouseListener.MouseUp
+        If button = 2 Then
+            textEnabled = Not textEnabled
+        End If
+    End Sub
+    Public Sub MouseDown(button As Integer, x As Integer, y As Integer) Implements IMouseListener.MouseDown
+        If button = 1 Then
+            Dim i As Integer = Helpers.ConvertPixelToGrid(x)
+            Dim j As Integer = Helpers.ConvertPixelToGrid(y)
+
+            Console.WriteLine("(" + Str(x).Trim + "," + Str(y).Trim + ") -> (" + Str(i).Trim + "," + Str(j).Trim + ")")
+        End If
+    End Sub
+    Public Sub MouseDrag(buttons As Integer, x As Integer, y As Integer) Implements IMouseListener.MouseDrag
+    End Sub
+
+    Protected Friend Overrides Sub ChangeLevel(level As Integer)
+        ' NOOP
+    End Sub
+End Class

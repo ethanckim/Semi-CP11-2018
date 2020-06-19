@@ -1,0 +1,8 @@
+﻿Imports FinalGameProject
+
+Friend Class HighlightEntity
+    Inherits GameEntity
+    Public Sub New()
+        MyBase.New(GameStatus.M)
+    End Sub
+End Class

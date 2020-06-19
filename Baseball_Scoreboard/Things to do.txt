@@ -1,0 +1,5 @@
+Things to do for the Scoreboard project
+
+* Perfection Activity Log
+* Make game over after 9 innings on both sides
+* + 2 Outs At once -> 

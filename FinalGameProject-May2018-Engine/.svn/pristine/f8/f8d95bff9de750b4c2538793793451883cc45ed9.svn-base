@@ -1,0 +1,8 @@
+﻿Public Class TileLayer
+    Inherits GraphicsLayer
+
+
+    Public Sub New()
+        entities.Add(New GameEntity(GameStatus.G, 2, 2))
+    End Sub
+End Class

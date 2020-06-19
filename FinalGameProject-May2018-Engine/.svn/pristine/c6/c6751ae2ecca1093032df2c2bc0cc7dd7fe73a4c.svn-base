@@ -1,0 +1,27 @@
+﻿Public Class KoopaEntity
+    Inherits GameEntity
+    Dim i As Integer = 0
+
+    Public Sub New(x As Integer, y As Integer)
+        MyBase.New(GameStatus.K, x, y)
+    End Sub
+
+    Public Overrides Sub AutoMove()
+        If i < 10 Then
+            move(Direction.Left)
+        ElseIf i < 12 Then
+            move(Direction.Up)
+        ElseIf i < 22 Then
+            move(Direction.Right)
+        Else
+            move(Direction.Down)
+        End If
+
+        i += 1
+
+        If i >= 24 Then
+            i = 0
+        End If
+
+    End Sub
+End Class

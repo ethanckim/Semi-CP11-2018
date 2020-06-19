@@ -1,0 +1,147 @@
+Public Class frmSimpleCalculator
+    Dim FirstInput As Decimal = 0
+    Dim SecondInput As Decimal = 0
+
+    Private Sub AddNumber(i As Integer)
+        If Not btnEquals.Enabled Then
+            FirstInput = FirstInput * 10 + i
+            lblInputOutput.Text = FirstInput
+        Else
+            SecondInput = SecondInput * 10 + i
+            lblInputOutput.Text = SecondInput
+        End If
+    End Sub
+
+    Private Sub btn0_Click(sender As Object, e As EventArgs) Handles btn0.Click
+        AddNumber(0)
+    End Sub
+
+    Private Sub btn1_Click(sender As Object, e As EventArgs) Handles btn1.Click
+        AddNumber(1)
+    End Sub
+
+    Private Sub btn2_Click(sender As Object, e As EventArgs) Handles btn2.Click
+        AddNumber(2)
+    End Sub
+
+    Private Sub btn3_Click(sender As Object, e As EventArgs) Handles btn3.Click
+        AddNumber(3)
+    End Sub
+
+    Private Sub btn4_Click(sender As Object, e As EventArgs) Handles btn4.Click
+        AddNumber(4)
+    End Sub
+
+    Private Sub btn5_Click(sender As Object, e As EventArgs) Handles btn5.Click
+        AddNumber(5)
+    End Sub
+
+    Private Sub btn6_Click(sender As Object, e As EventArgs) Handles btn6.Click
+        AddNumber(6)
+    End Sub
+
+    Private Sub btn7_Click(sender As Object, e As EventArgs) Handles btn7.Click
+        AddNumber(7)
+    End Sub
+
+    Private Sub btn8_Click(sender As Object, e As EventArgs) Handles btn8.Click
+        AddNumber(8)
+    End Sub
+
+    Private Sub btn9_Click(sender As Object, e As EventArgs) Handles btn9.Click
+        AddNumber(9)
+    End Sub
+
+    Private Sub btnDot_Click(sender As Object, e As EventArgs) Handles btnDot.Click
+
+    End Sub
+
+    Private Sub Operation(j As Integer)
+        lblFirstNumber.Text = FirstInput
+        If j = 0 Then
+            lblOperation.Text = "+"
+        ElseIf j = 1 Then
+            lblOperation.Text = "-"
+        ElseIf j = 2 Then
+            lblOperation.Text = "x"
+        Else
+            lblOperation.Text = "÷"
+        End If
+        lblInputOutput.Text = 0
+        btnEquals.Enabled = True
+        btnMinus.Enabled = False
+        btnMultiply.Enabled = False
+        btnDivide.Enabled = False
+        btnPlus.Enabled = False
+    End Sub
+
+    Private Sub btnPlus_Click(sender As Object, e As EventArgs) Handles btnPlus.Click
+        Operation(0)
+    End Sub
+
+    Private Sub btnMinus_Click(sender As Object, e As EventArgs) Handles btnMinus.Click
+        Operation(1)
+    End Sub
+
+    Private Sub btnMultiply_Click(sender As Object, e As EventArgs) Handles btnMultiply.Click
+        Operation(2)
+    End Sub
+
+    Private Sub btnDivide_Click(sender As Object, e As EventArgs) Handles btnDivide.Click
+        Operation(3)
+    End Sub
+
+    Private Sub btnEquals_Click(sender As Object, e As EventArgs) Handles btnEquals.Click
+        lblEquals.Text = "="
+        lblSecondNumber.Text = SecondInput
+        If lblOperation.Text = "+" Then
+            lblInputOutput.Text = FirstInput + SecondInput
+        ElseIf lblOperation.Text = "-" Then
+            lblInputOutput.Text = FirstInput - SecondInput
+        ElseIf lblOperation.Text = "x" Then
+            lblInputOutput.Text = FirstInput * SecondInput
+        ElseIf lblOperation.Text = "÷" Then
+            lblInputOutput.Text = FirstInput / SecondInput
+        End If
+        btnEquals.Enabled = False
+        btn0.Enabled = False
+        btn1.Enabled = False
+        btn2.Enabled = False
+        btn3.Enabled = False
+        btn4.Enabled = False
+        btn5.Enabled = False
+        btn6.Enabled = False
+        btn7.Enabled = False
+        btn8.Enabled = False
+        btn9.Enabled = False
+        btnDot.Enabled = False
+    End Sub
+
+    Private Sub btnC_Click(sender As Object, e As EventArgs) Handles btnC.Click
+        lblFirstNumber.Text = " "
+        lblSecondNumber.Text = " "
+        lblOperation.Text = " "
+        lblEquals.Text = " "
+        lblInputOutput.Text = 0
+        FirstInput = 0
+        SecondInput = 0
+        btnEquals.Enabled = False
+        btnMinus.Enabled = True
+        btnMultiply.Enabled = True
+        btnDivide.Enabled = True
+        btnPlus.Enabled = True
+        btn0.Enabled = True
+        btn1.Enabled = True
+        btn2.Enabled = True
+        btn3.Enabled = True
+        btn4.Enabled = True
+        btn5.Enabled = True
+        btn6.Enabled = True
+        btn7.Enabled = True
+        btn8.Enabled = True
+        btn9.Enabled = True
+        btnDot.Enabled = True
+    End Sub
+
+
+End Class

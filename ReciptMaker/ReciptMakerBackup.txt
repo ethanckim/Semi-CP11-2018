@@ -1,0 +1,24 @@
+Public Class frmRecipt
+
+
+
+    Private Sub btnCalculate_Click(sender As Object, e As EventArgs) Handles btnCalculate.Click
+        Dim OrangeAmount As Integer
+        Dim OrangePrice As Decimal
+
+        'Getting values from the UI
+        'The command CInt converts a String(Ex. "5") to an Integer(Ex. 5)
+        OrangeAmount = CInt(txtOrangeAmount.Text)
+        'The command CDec converts a String(Ex. "3") to a Decimal(Ex. 3.0)
+        OrangePrice = CDec(txtOrangePrice.Text)
+
+        Dim OrangeOverall As Decimal
+        OrangeOverall = OrangeAmount * OrangePrice
+        'Makes a string into $0.00 Format
+        txtOrangeTotal.Text = FormatCurrency(OrangeOverall)
+    End Sub
+
+    Private Sub txtOrangePrice_TextChanged(sender As Object, e As EventArgs) Handles txtOrangePrice.TextChanged
+
+    End Sub
+End Class

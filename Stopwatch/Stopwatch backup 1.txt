@@ -1,0 +1,39 @@
+﻿Public Class frmStopwatch
+
+    Dim tenths As Integer = 0
+    Dim seconds As Integer = 0
+
+    Private Sub btnStartStop_Click(sender As Object, e As EventArgs) Handles btnStartStop.Click
+        If tmrTimer.Enabled = False Then
+            tmrTimer.Enabled = True
+            btnResetLap.Text = "Lap"
+            btnStartStop.Text = "Stop"
+        Else
+            tmrTimer.Enabled = False
+            btnResetLap.Text = "Reset"
+            btnStartStop.Text = "Start"
+        End If
+    End Sub
+
+    Private Sub tmrTenths_Tick(sender As Object, e As EventArgs) Handles tmrTimer.Tick
+
+        txtTenths.Text = Str(tenths)
+        txtSeconds.Text = Str(seconds)
+        tenths += 1
+        If tenths = 10 Then
+            seconds += 1
+            tenths = 0
+        End If
+    End Sub
+
+    Private Sub btnReset_Click(sender As Object, e As EventArgs) Handles btnResetLap.Click
+        If tmrTimer.Enabled = True Then
+
+        Else
+            tenths = 0
+            seconds = 0
+            txtTenths.Text = "0"
+            txtSeconds.Text = "0"
+        End If
+    End Sub
+End Class

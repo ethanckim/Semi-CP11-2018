@@ -1,0 +1,50 @@
+﻿Imports FinalGameProject
+
+Public Class BackgroundLayer
+    Inherits GraphicsLayer
+    Dim bg As Image
+    Private gridEnabled As Boolean = True
+
+    Public Sub New(game As GameStatus)
+        MyBase.New(game)
+        bg = Image.FromFile(Helpers.GetPath("images", "bg.jpg"))
+    End Sub
+
+    Public Overrides Sub RenderNextFrame(gfx As Graphics, game As GameStatus, bounds As Rectangle)
+        ' empty frame
+        gfx.FillRectangle(Brushes.White, bounds)
+        If bg IsNot Nothing Then
+            gfx.DrawImage(bg, 0, 0)
+        End If
+        Dim x As Integer
+        Dim y As Integer
+
+        If gridEnabled Then
+            Dim i As Integer = 0
+            y = Helpers.ConvertGridToPixel(GameStatus.MAP_SIZE_Y)
+            While i < GameStatus.MAP_SIZE_X
+                x = Helpers.ConvertGridToPixel(i)
+                gfx.DrawLine(Pens.DarkGray, x, 0, x, y)
+
+                i += 1
+            End While
+
+            Dim j As Integer = 0
+            x = Helpers.ConvertGridToPixel(GameStatus.MAP_SIZE_X)
+            While j < GameStatus.MAP_SIZE_Y
+                y = Helpers.ConvertGridToPixel(j)
+                gfx.DrawLine(Pens.DarkGray, 0, y, x, y)
+
+                j += 1
+            End While
+        End If
+        x = Helpers.ConvertGridToPixel(GameStatus.MAP_SIZE_X)
+        y = Helpers.ConvertGridToPixel(GameStatus.MAP_SIZE_Y)
+        gfx.DrawLine(Pens.DarkGray, 0, y, x, y)
+    End Sub
+
+
+    Protected Friend Overrides Sub ChangeLevel(level As Integer)
+        ' NOOP
+    End Sub
+End Class

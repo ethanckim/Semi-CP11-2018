@@ -1,0 +1,28 @@
+﻿Public Class GameEntity
+
+    Protected Friend location As Point = New Point(0, 0)
+    Protected Friend id As Char
+    Protected Friend visible As Boolean = True
+
+
+    Public Sub New(id As Char)
+        Me.id = id
+    End Sub
+
+    Public Sub New(id As Char, x As Integer, y As Integer)
+        Me.id = id
+        Me.location.X = x
+        Me.location.Y = y
+    End Sub
+
+    Public Sub setLocation(x As Object, y As Object)
+        location.X = Math.Min(Math.Max(0, x), GameStatus.MAP_SIZE_X - 1)
+        location.Y = Math.Min(Math.Max(0, y), GameStatus.MAP_SIZE_Y - 1)
+    End Sub
+
+    Public Sub move(dx As Object, dy As Object)
+        location.X = Math.Min(Math.Max(0, location.X + dx), GameStatus.MAP_SIZE_X - 1)
+        location.Y = Math.Min(Math.Max(0, location.Y + dy), GameStatus.MAP_SIZE_Y - 1)
+    End Sub
+
+End Class

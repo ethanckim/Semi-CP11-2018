@@ -1,0 +1,82 @@
+﻿Imports FinalGameProject
+
+Public Class CharactersLayer
+    Inherits GraphicsLayer
+    Implements IKeyboardListener
+    Private character As GameEntity
+
+    Public Sub New(game As GameStatus)
+        MyBase.New(game)
+
+    End Sub
+
+    Protected Friend Overrides Sub ChangeLevel(level As Integer)
+        entities.Clear()
+        character = Nothing
+
+        If level = 1 Then
+
+            character = New GameEntity(GameStatus.C, 2, 1)
+            entities.Add(character)
+
+            entities.Add(New GameEntity(GameStatus.W, 5, 4))
+
+            entities.Add(New KoopaEntity(12, 13))
+        End If
+    End Sub
+
+    Public Sub KeyDown(keyCode As Keys) Implements IKeyboardListener.KeyDown
+        If character Is Nothing Then
+            Exit Sub
+        End If
+
+        Dim d As Direction = Direction.None
+        Select Case keyCode
+            Case Keys.Right, Keys.NumPad6
+                d = Direction.Right
+            Case Keys.Down, Keys.NumPad2
+                d = Direction.Down
+            Case Keys.Up, Keys.NumPad8
+                d = Direction.Up
+            Case Keys.Left, Keys.NumPad4
+                d = Direction.Left
+            Case Keys.NumPad7
+                d = Direction.UpLeft
+            Case Keys.NumPad9
+                d = Direction.UpRight
+            Case Keys.NumPad1
+                d = Direction.DownLeft
+            Case Keys.NumPad3
+                d = Direction.DownRight
+        End Select
+
+        Dim dx As Integer = xDelta(d)
+        Dim dy As Integer = yDelta(d)
+
+        Dim allowMove As Boolean = True
+        If Helpers.Inside(character.location.X + dx, 0, GameStatus.MAP_SIZE_X) AndAlso Helpers.Inside(character.location.Y + dy, 0, GameStatus.MAP_SIZE_Y) Then
+
+            Dim lastMap As Char(,) = game.GetLastMap()
+            'If lastMap(character.location.X + dx, character.location.Y + dy) = GameStatus.T Then
+            '    allowMove = False
+            'End If
+            Select Case lastMap(character.location.X + dx, character.location.Y + dy)
+                Case GameStatus.T
+                    allowMove = False
+                Case GameStatus.W
+                    allowMove = False
+            End Select
+
+            If allowMove Then
+                character.move(dx, dy)
+            End If
+
+        End If
+    End Sub
+
+    Public Sub KeyUp(keyCode As Keys) Implements IKeyboardListener.KeyUp
+    End Sub
+
+
+End Class
+

@@ -1,0 +1,65 @@
+﻿Imports System.ComponentModel
+Imports FinalGameProject
+
+Public Class frmPaint
+    Dim r As New Random()
+
+    Dim game As GameStatus
+    Friend manager As FrameManager
+
+    Private Sub frmPaint_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        manager = pbcCanvas.GetFrameManager()
+        game = New GameStatus()
+        manager.Start(tmrRepaint.Interval, game)
+        frmDebug.Show()
+        moveDebugForm()
+    End Sub
+
+    Private Sub moveDebugForm()
+        frmDebug.Left = Me.Left + Me.Width + 10
+        frmDebug.Top = Me.Top
+    End Sub
+
+    Private Sub tmrRepaint_Tick(sender As Object, e As EventArgs) Handles tmrRepaint.Tick
+        pbcCanvas.Invalidate()
+    End Sub
+
+    Private Sub frmPaint_Closing(sender As Object, e As CancelEventArgs) Handles Me.Closing
+        pbcCanvas.GetFrameManager.kill = True
+        frmDebug.sendClose = False
+        frmDebug.Close()
+    End Sub
+
+    Private Sub frmPaint_Move(sender As Object, e As EventArgs) Handles Me.Move
+        moveDebugForm()
+    End Sub
+
+
+    Private Sub frmPaint_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
+        Dim i As Integer = 0
+        Dim listeners As List(Of IKeyboardListener) = manager.GetKeyboardListeners()
+        While i < listeners.Count
+            Dim l As IKeyboardListener = listeners(i)
+            If l IsNot Nothing Then
+                l.KeyDown(e.KeyCode)
+            End If
+
+            i += 1
+        End While
+        e.Handled = True
+    End Sub
+
+    Private Sub frmPaint_KeyUp(sender As Object, e As KeyEventArgs) Handles Me.KeyUp
+        Dim i As Integer = 0
+        Dim listeners As List(Of IKeyboardListener) = manager.GetKeyboardListeners()
+        While i < listeners.Count
+            Dim l As IKeyboardListener = listeners(i)
+            If l IsNot Nothing Then
+                l.KeyUp(e.KeyCode)
+            End If
+
+            i += 1
+        End While
+        e.Handled = True
+    End Sub
+End Class

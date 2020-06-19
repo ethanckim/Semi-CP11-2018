@@ -1,0 +1,170 @@
+﻿Imports FinalGameProject
+
+Public Class GameStatus
+
+    Public Shared ReadOnly S As Char = "-"c
+    Public Shared ReadOnly G As Char = "G"c
+    Public Shared ReadOnly K As Char = "K"c
+    Public Shared ReadOnly W As Char = "W"c
+    Public Shared ReadOnly M As Char = "M"c
+    Public Shared ReadOnly C As Char = "C"c
+    Public Shared ReadOnly T As Char = "T"c
+    Private rnd As Random = New Random
+
+    Public Const TILE_SIZE = 32
+    Public Const MAP_SIZE_X = 16
+    Public Const MAP_SIZE_Y = MAP_SIZE_X
+
+    Protected Friend spriteMap As Hashtable
+    Protected Friend keyboardListeners As List(Of IKeyboardListener) = New List(Of IKeyboardListener)
+    Protected Friend mouseListeners As List(Of IMouseListener) = New List(Of IMouseListener)
+    Protected Friend graphicsLayers As List(Of GraphicsLayer) = New List(Of GraphicsLayer)
+
+    Private score As Integer = 0
+
+
+    Private animationMode As AnimationMode = AnimationMode.Run
+    Private Const ANIMATION_COOLDOWN = 2
+    Private animationTick As Integer = ANIMATION_COOLDOWN
+    Private currentLevel As Integer
+
+    Public Sub New()
+        loadImages()
+
+        Dim background As BackgroundLayer = New BackgroundLayer(Me)
+        graphicsLayers.Add(background)
+
+        Dim debug As DebugLayer = New DebugLayer(Me)
+        graphicsLayers.Add(debug)
+
+        Dim tiles As TileLayer = New TileLayer(Me)
+        graphicsLayers.Add(tiles)
+
+        Dim tokens As CharactersLayer = New CharactersLayer(Me)
+        graphicsLayers.Add(tokens)
+        keyboardListeners.Add(tokens)
+
+        Dim selectionHighlighter As SelectionHighlighter = New SelectionHighlighter(Me)
+        graphicsLayers.Add(selectionHighlighter)
+        mouseListeners.Add(selectionHighlighter)
+
+        NewGame()
+    End Sub
+
+    Public Sub RestartLevel()
+        ChangeLevel(currentLevel)
+    End Sub
+
+    Public Sub ChangeLevel(level As Integer)
+        currentLevel = level
+        Dim i As Integer = 0
+        While i < graphicsLayers.Count
+            graphicsLayers(i).ChangeLevel(level)
+
+            i += 1
+        End While
+    End Sub
+
+    Public Sub loadImages()
+        If spriteMap Is Nothing Then
+            spriteMap = New Hashtable()
+        End If
+
+        softAdd(GameStatus.C, "images", "mario_32.png")
+        softAdd(GameStatus.K, "images", "koopa_32.png")
+        softAdd(GameStatus.W, "images", "knife_32.png")
+        softAdd(GameStatus.M, "images", "mouse.png")
+        softAdd(GameStatus.G, "images", "grass32-96.png")
+        softAdd(GameStatus.T, "images", "tree.png")
+    End Sub
+
+    Private Sub softAdd(c As Char, folder As String, filename As String)
+        If Not spriteMap.ContainsKey(c) Then
+            spriteMap.Add(c, Image.FromFile(Helpers.GetPath(folder, filename)))
+        End If
+    End Sub
+
+    Protected Friend Function GetLastMap() As Char(,)
+        Dim lastMap(GameStatus.MAP_SIZE_X - 1, GameStatus.MAP_SIZE_Y - 1) As Char
+        Dim i As Integer = 0
+        While i < GameStatus.MAP_SIZE_X
+            Dim j As Integer = 0
+            While j < GameStatus.MAP_SIZE_Y
+                lastMap(i, j) = GameStatus.S
+                j += 1
+            End While
+            i += 1
+        End While
+
+        i = 0
+        While i < graphicsLayers.Count
+            Dim layer As Char(,) = graphicsLayers(i).map
+            If layer Is Nothing Then
+                i += 1
+                Continue While
+            End If
+
+            Dim x As Integer = 0
+            While x < GameStatus.MAP_SIZE_X
+                Dim y As Integer = 0
+                While y < GameStatus.MAP_SIZE_Y
+                    Dim c As Char = layer(x, y)
+                    If Not c = "0"c AndAlso Not c = S Then
+                        lastMap(x, y) = c
+                    End If
+
+                    y += 1
+                End While
+                x += 1
+            End While
+
+            i += 1
+        End While
+
+        Return lastMap
+    End Function
+
+    Public Sub NewGame()
+        score = 0
+
+        ChangeLevel(1)
+    End Sub
+
+    Public Sub GameOver()
+        score = 0
+
+        ChangeLevel(0)
+    End Sub
+
+    Public Function GetScore() As Integer
+        Return score
+    End Function
+
+    Public Overrides Function ToString() As String
+        Return "TODO: UPDATE THIS"
+    End Function
+
+    Public Sub AdvanceAnimation()
+        If animationMode = AnimationMode.Stopped Then
+            Exit Sub
+        ElseIf animationTick < ANIMATION_COOLDOWN Then
+            animationTick += 1
+            Exit Sub
+        Else
+            animationTick = 0
+        End If
+
+        Select Case animationMode
+            Case AnimationMode.Stopped
+                ' NOOP
+            Case AnimationMode.Run
+                Dim i As Integer = 0
+                While i < graphicsLayers.Count
+                    graphicsLayers(i).Animate()
+                    i += 1
+                End While
+
+        End Select
+
+    End Sub
+End Class

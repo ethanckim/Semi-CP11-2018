@@ -1,0 +1,94 @@
+﻿Imports FinalGameProject.GameStatus
+
+Public MustInherit Class GraphicsLayer
+
+    Public map(,) As Char
+    Protected Friend entities As List(Of GameEntity) = New List(Of GameEntity)
+    Protected Friend textEnabled As Boolean = False
+    Protected Friend game As GameStatus
+
+    Public Sub New(game As GameStatus)
+        Me.game = game
+    End Sub
+
+
+    Public Overridable Sub RenderNextFrame(gfx As Graphics, game As GameStatus, bounds As Rectangle)
+        GenerateMap()
+
+
+        Dim x As Integer = 0
+        While x < map.GetLength(0)
+            Dim y As Integer = 0
+            While y < map.GetLength(1)
+                Dim c As Char = map(x, y)
+                Dim sprite As Image = game.spriteMap(c)
+
+                If sprite IsNot Nothing Then
+                    gfx.DrawImage(sprite, Helpers.ConvertGridToPixel(x), Helpers.ConvertGridToPixel(y))
+                ElseIf textEnabled Then
+                    ' TODO  performance of this is horrible?
+                    gfx.DrawString(Str(x).Trim + "," + Str(y).Trim + vbCrLf + c, SystemFonts.DefaultFont, Brushes.Black, GameStatus.TILE_SIZE * (x), GameStatus.TILE_SIZE * (y))
+
+                End If
+                y += 1
+            End While
+            x += 1
+        End While
+
+    End Sub
+    Protected Friend MustOverride Sub ChangeLevel(level As Integer)
+    'Protected Friend Sub ChangeLevel(level(,) As Char)
+    '    entities.Clear()
+
+    '    Dim x As Integer = 0
+    '    Dim y As Integer = 0
+    '    While y < level.GetLength(1)
+    '        x = 0
+    '        While x < level.GetLength(0)
+    '            Dim c As Char
+    '            ' Array format is transposed... so y,x is what we want.
+    '            c = level(y, x)
+
+    '            If Not c = S Then
+    '                entities.Add(New GameEntity(c, x, y))
+    '            End If
+    '            x += 1
+    '        End While
+    '        y += 1
+    '    End While
+    'End Sub
+
+    Public Overridable Sub GenerateMap()
+        Dim nextMap(GameStatus.MAP_SIZE_X - 1, GameStatus.MAP_SIZE_Y - 1) As Char
+
+        Dim i As Integer = 0
+        While i < GameStatus.MAP_SIZE_X
+            Dim j As Integer = 0
+            While j < GameStatus.MAP_SIZE_Y
+                nextMap(i, j) = GameStatus.S
+                j += 1
+            End While
+            i += 1
+        End While
+
+        i = 0
+        While i < entities.Count
+            Dim entity As GameEntity = entities(i)
+            If entity.visible Then
+                nextMap(entity.location.X, entity.location.Y) = entity.id
+            End If
+
+            i += 1
+        End While
+
+        Me.map = nextMap
+    End Sub
+
+    Protected Friend Overridable Sub Animate()
+        Dim i As Integer = 0
+        While i < entities.Count
+            entities(i).AutoMove()
+            i += 1
+        End While
+    End Sub
+End Class

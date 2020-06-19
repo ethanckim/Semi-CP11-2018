@@ -1,0 +1,22 @@
+﻿Public Class DebugLayer
+    Inherits GraphicsLayer
+    Public Sub New(game As GameStatus)
+        MyBase.New(game)
+        textEnabled = True
+    End Sub
+
+    Public Overrides Sub RenderNextFrame(gfx As Graphics, game As GameStatus, bounds As Rectangle)
+        If textEnabled Then
+
+            Dim status As String = "0"
+            If game IsNot Nothing Then
+                status = game.ToString()
+            End If
+            gfx.DrawString(status, SystemFonts.DefaultFont, Brushes.Black, 250, 514)
+        End If
+    End Sub
+
+    Protected Friend Overrides Sub ChangeLevel(level As Integer)
+        ' NOOP
+    End Sub
+End Class
