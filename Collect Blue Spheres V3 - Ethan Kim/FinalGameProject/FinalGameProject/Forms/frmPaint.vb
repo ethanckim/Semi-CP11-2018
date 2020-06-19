@@ -8,7 +8,7 @@ Public Class frmPaint
 
     Private Sub frmPaint_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        My.Computer.Audio.Play("\\semi-fs2\semi-studenthome\ethanc.kim\CP11\FinalGameProject\FinalGameProject\Music\BlueSpheres.wav", AudioPlayMode.BackgroundLoop)
+        My.Computer.Audio.Play(My.Resources.BlueSpheres, AudioPlayMode.BackgroundLoop)
 
         'If game.currentLevel = 1 Then
         'lblBSCount.Text = 94

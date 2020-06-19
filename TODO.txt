@@ -1,0 +1,4 @@
+FIX ERRORS:
+
+LetterCounter - When numbers (123) are typed
+Animal Type - Does Nothing

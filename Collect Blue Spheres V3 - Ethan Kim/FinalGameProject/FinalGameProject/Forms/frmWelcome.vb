@@ -1,7 +1,6 @@
 ﻿Imports System.ComponentModel
 
 Public Class frmWelcome
-
     Private Sub btnNew_Click(sender As Object, e As EventArgs) Handles btnNew.Click
         frmPaint.Show()
         frmPaint.manager.GetGame.ChangeLevel(1)
@@ -9,17 +8,17 @@ Public Class frmWelcome
     End Sub
 
     Private Sub frmWelcome_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        My.Computer.Audio.Play("\\semi-fs2\semi-studenthome\ethanc.kim\CP11\FinalGameProject\FinalGameProject\Music\NoWay.wav", AudioPlayMode.BackgroundLoop)
+        My.Computer.Audio.Play(My.Resources.NoWay, AudioPlayMode.BackgroundLoop)
     End Sub
 
     Private Sub frmWelcome_VisibleChanged(sender As Object, e As EventArgs) Handles Me.VisibleChanged
         If Me.Visible = True Then
-            My.Computer.Audio.Play("\\semi-fs2\semi-studenthome\ethanc.kim\CP11\FinalGameProject\FinalGameProject\Music\NoWay.wav", AudioPlayMode.BackgroundLoop)
+            My.Computer.Audio.Play(My.Resources.NoWay, AudioPlayMode.BackgroundLoop)
 
-            If frmPaint.manager.GetGame.BeatGame = True Then
-                MessageBox.Show("Thank you for Playing Blue Spheres 2D!" + vbCrLf + "Credits: Ethan Kim", "Congradulations!")
-                frmPaint.manager.GetGame.BeatGame = False
-            End If
+            'If frmPaint.manager.GetGame.BeatGame = True Then
+            'MessageBox.Show("Thank you for Playing Blue Spheres 2D!" + vbCrLf + "Credits: Ethan Kim", "Congradulations!")
+            'frmPaint.manager.GetGame.BeatGame = False
+            'End If
         End If
     End Sub
 

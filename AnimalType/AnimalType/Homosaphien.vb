@@ -1,8 +1,6 @@
 ﻿Public Class Homosaphien
     Inherits Animal
     Dim Name As String
-    Dim 
-
 
     Public Sub New(n As String)
         MyBase.New(n)
