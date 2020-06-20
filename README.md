@@ -28,10 +28,12 @@ The programs are organized into the following subdirectories and may include REA
     * Counts # of characters, consonants, and vowels. Has features to manipulate the input string into it's reverse, palindrome, or crazy upper/lower cases.
 * [Letter Counter](LetterCounter)
     * Intro to ascii characters. Counts the occurance of certain characters when given an input. 
-* [Heads Tails Simulator](HeadsTailsSimulator)
-    * Runs multiple (and I mean thousands of) coin flip simulations to find the practical probability of certain statistical questions.
 * [Triangular Numbers](TriangularNumbers)
-    * Obtains triangular numbers up to the n'th trial.  
+    * Obtains triangular numbers up to the n'th trial. 
+* [Heads Tails Simulator](HeadsTailsSimulator)
+    * Runs multiple (and I mean thousands of) coin flip simulations to find the practical probability of certain statistical questions. 
+* [Game Demo](FinalGameProject-May2018-Engine)
+    * Introduction to Mr.Hapke's Game Engine. Mario is controlled by arrow keys in a grid. 
 
 
 ## Major Projects
@@ -43,8 +45,6 @@ The programs are organized into the following subdirectories and may include REA
     * A semi-auto baseball score board. Can count outs, strikes, and balls up to 9 innings. Tallies up points and shows the occupancy of first, second, and third base.
 * [It Might be Paint](cp12.simplecollections)
     * A itteration of MS Paint. Can draw multi-colored circles, retangles, straight lines, and text on a canvas.
-* [Game Demo](FinalGameProject-May2018-Engine)
-    * Introduction to Mr.Hapke's Game Engine. Mario is controlled by arrow keys in a grid. 
 * [Blue Spheares - Final Game Project](Collect%20Blue%20Spheres%20V3%20-%20Ethan%20Kim)
     * Inspired by the original Sonic Blue Spheres game (1994), This game has the same objective as the original game: Collect ALL Blue spheres while avoiding Red Speres!
 
