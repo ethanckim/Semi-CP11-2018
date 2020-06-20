@@ -11,10 +11,14 @@
         'Array - Multiple variables at once!
         'This array is stored outside cuz I want to save the data from loop i, and use it for loop j
         Dim letters(25) As Integer
+        'Same concept for numbers
+        Dim numbers(9) As Integer
         'Variable specifically for Punctuation
         Dim punc As Integer = 0
         'Variable specifically for spaces
         Dim space As Integer = 0
+        'Variable sepcifically for other characters
+        Dim other As Integer = 0
 
 
         'Loops this code for the amount of characters in the code
@@ -32,9 +36,14 @@
             ElseIf ascii = 32 Then
                 space += 1
 
-            Else
+            ElseIf ascii >= 65 And ascii <= 90 Then
                 ' + 1 the "letters" variable that corrisponds to the ascii code.
                 letters(ascii - 65) += 1
+            ElseIf ascii >= 48 And ascii <= 57 Then
+                ' + 1 the "numbers" variable that corrisponds to the ascii code.
+                numbers(ascii - 48) += 1
+            Else
+                other += 1
 
             End If
 
@@ -46,7 +55,6 @@
             i += 1
         End While
 
-
         Dim j As Integer = 0
         While j < letters.Length
             'Each time the loop repeats, the ascii variable's ascii code goes up by one. A to Z.
@@ -57,8 +65,18 @@
             j += 1
         End While
 
+        'Same for Numbers
+        Dim k As Integer = 0
+        While k < numbers.Length
+            Dim ascii As Integer = k + 48
+            txtOutput.Text += Chr(ascii) + " :  " + Str(numbers(k)) + vbCrLf
+
+            k += 1
+        End While
+
         txtOutput.Text += "Space :  " + Str(space) + vbCrLf
-        txtOutput.Text += "Punc :  " + Str(punc)
+        txtOutput.Text += "Punc :  " + Str(punc) + vbCrLf
+        txtOutput.Text += "Other :  " + Str(other)
 
 
     End Sub

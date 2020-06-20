@@ -15,7 +15,7 @@
     End Function
 
     Public Overrides Function speak() As String
-        Throw New NotImplementedException()
+        Return "Hello?"
     End Function
 
     Public Overrides Function spikes() As Boolean
