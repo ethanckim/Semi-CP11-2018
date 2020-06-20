@@ -7,7 +7,7 @@ These programs created are developed while enrolled in the Computer Programming 
 
 To run the programs, locate the .exe file in the bin/debug or bin/release directory.
 
-The programs are organized into the following subdirectories and may include README.md files with specific instructions:
+The programs are organized into the following subdirectories:
 
 ## Minor Projects
 * [HelloWorld](HelloWorld)
