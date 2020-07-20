@@ -3,7 +3,7 @@
 
 These programs created are developed while enrolled in the Computer Programming 11 course instructed by Mr. Nathan Hapke, Semiahmoo Secondary School.
 
-***For Current Students: Please do not copy this code directly for your projects. Mr.Hapke already assessed my work, and copying and pasting directly will immediately result in academic dishonesty.***
+***For Current Students: Please do not copy this code directly for your projects. Mr.Hapke already assessed my work; plagerism is a violation of academic honesty policies.***
 
 To run the programs, locate the .exe file in the bin/debug or bin/release directory.
 
